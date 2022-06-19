@@ -11,14 +11,14 @@ CHECK_BUFFER = 0.5 # Seconds
 
 os.system('clear')
 print("=============================================================================================================")
-print("\
-   ▒█▀▀▀█ █░█ ░▀░ █▀▀█ 　 ▒█▀▀▀█ █▀▀█ █▀▀█ ▀▀█▀▀ ░▀░ █▀▀ █░░█ 　 ░█▀▀█ █▀▀▄ █▀▀    |\  zzz _,,,---,,_ \n\
+print("                                                                                        zzz                  \n\
+   ▒█▀▀▀█ █░█ ░▀░ █▀▀█ 　 ▒█▀▀▀█ █▀▀█ █▀▀█ ▀▀█▀▀ ░▀░ █▀▀ █░░█ 　 ░█▀▀█ █▀▀▄ █▀▀    |\  z   _,,,---,,_ \n\
    ░▀▀▀▄▄ █▀▄ ▀█▀ █░░█ 　 ░▀▀▀▄▄ █░░█ █░░█ ░░█░░ ▀█▀ █▀▀ █▄▄█ 　 ▒█▄▄█ █░░█ ▀▀█    /,`.-'`'    -.  ;-;;,_ \n\
    ▒█▄▄▄█ ▀░▀ ▀▀▀ █▀▀▀ 　 ▒█▄▄▄█ █▀▀▀ ▀▀▀▀ ░░▀░░ ▀▀▀ ▀░░ ▄▄▄█ 　 ▒█░▒█ ▀▀▀░ ▀▀▀   |,>)  ) )-,_..;\ (  `'-' \n\
   -------------------------------------------------------------- by b0rd2dEAth --'---''(_/--'--`-'\_)------")
 print("=============================================================================================================")
 
-last = ('', '')
+last = None
 while True:
     try:
         current = spotify.current()
@@ -30,7 +30,7 @@ while True:
         os.system('open /Applications/Spotify.app')
         os.system(f"osascript -e 'tell application {SPOTIFY_IN_QUOTES} to play next track'")
         print(f'[{dt.datetime.now()}] Ads have been skipped. :)')
-    elif current != ('', '') and last != current:
+    elif current != ('', '') and last != ('', '') and last != current:
         print(f'[{dt.datetime.now()}] Currently Playing: {current[0]} by {current[1]}')
     
     last = current
