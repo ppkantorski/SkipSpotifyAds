@@ -7,7 +7,7 @@ warnings.simplefilter(action='ignore', category=UserWarning)
 
 
 SPOTIFY_IN_QUOTES = '"Spotify"'
-DELAY = 0.5 # Seconds
+CHECK_BUFFER = 0.5 # Seconds
 
 os.system('clear')
 print("=============================================================================================================")
@@ -34,4 +34,4 @@ while True:
         print(f'[{dt.datetime.now()}] Currently Playing: {current[0]} by {current[1]}')
     
     last = current
-    time.sleep(DELAY)
+    time.sleep(CHECK_BUFFER)
