@@ -9,4 +9,4 @@ pip3 uninstall werkzeug
 pip3 install werkzeug==2.0.3
 ```
 
-2. Run script on a background screen and add to crontab for persistence.
+2. Deploy using the .zsh script.  You will need to modify the path to the .py within the .zsh script.
