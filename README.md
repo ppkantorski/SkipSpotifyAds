@@ -1,8 +1,8 @@
 # Skip Spotify Ads (macOS)
 
-This script will restart Spotify whenever ads come up for seamless streaming as well as log the songs that you listen to.
-
 ![alt-text](https://i.imgur.com/ll5OsEE.png)
+
+This script will restart Spotify whenever ads come up for seamless streaming as well as log the songs that you listen to.
 
 1. Dependencies
 ```
