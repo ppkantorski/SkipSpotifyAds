@@ -2,6 +2,7 @@ from SwSpotify import spotify
 import os
 import time
 import datetime as dt
+import random
 import warnings
 warnings.simplefilter(action='ignore', category=UserWarning)
 
@@ -31,7 +32,7 @@ ONE_LINE_BANNERS = [
     '>>------> (+)'
 ]
 banner_indexes = list(range(len(ONE_LINE_BANNERS)))
-banner_indexes.shuffle()
+random.shuffle(banner_indexes)
 
 last = None
 while True:
@@ -47,7 +48,7 @@ while True:
         banner_index = banner_indexes.pop(0)
         if len(banner_indexes) == 0:
             banner_indexes = list(range(len(ONE_LINE_BANNERS)))
-            banner_indexes.shuffle()
+            random.shuffle(banner_indexes)
         print(f'[{dt.datetime.now()}] Ads have been skipped. {ONE_LINE_BANNERS[banner_index]}')
     elif current != ('', '') and last != ('', '') and last != current:
         print(f'[{dt.datetime.now()}] Currently Playing: {current[0]} by {current[1]}')
