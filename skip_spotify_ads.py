@@ -52,7 +52,7 @@ while True:
             random.shuffle(banner_indexes)
         print(f'[{dt.datetime.now()}] Ads have been skipped. {ONE_LINE_BANNERS[banner_index]}')
     elif current != ('', '') and last != ('', '') and last != current:
-        print(f'[{dt.datetime.now()}] Currently Playing: {current[0]} by {current[1]}')
+        print(f'[{dt.datetime.now()}] Now Playing: {current[0]} by {current[1]}')
     
     last = current
     time.sleep(CHECK_BUFFER)
