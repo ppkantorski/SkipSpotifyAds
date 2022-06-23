@@ -16,5 +16,5 @@ pip3 install werkzeug==2.0.3
 ```
 screen -r skip_spotify_ads
 ```
-To detach, run:
+To detach, press:
 ```CTRL+A, CTRL+D```
