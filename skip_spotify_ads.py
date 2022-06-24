@@ -12,9 +12,6 @@ SPOTIFY_IN_QUOTES = '"Spotify"'
 CHECK_BUFFER = 0.5 # Seconds
 LOOP_BUFFER = 0.1
 TIMEOUT_THRESHOLD = 5
-
-os.system('clear')
-
 BANNER = ("\
 =============================================================================================================\n\
                                                                                        zzz                   \n\
@@ -24,7 +21,6 @@ BANNER = ("\
   -------------------------------------------------------------- by b0rd2dEAth --'---''(_/--'--`-'\_)------   \n\
 =============================================================================================================\
 ")
-
 ONE_LINE_BANNERS = [
     '(x_x) [o_o] (^.^) ("-") (T.T)',
     '_.~"(_.~"(_.~"(_.~"(_.~"(',
@@ -68,8 +64,8 @@ ONE_LINE_BANNERS = [
 
 def main():
     
+    os.system('clear')
     print(BANNER)
-    
     
     banner_indexes = list(range(len(ONE_LINE_BANNERS)))
     random.shuffle(banner_indexes)
