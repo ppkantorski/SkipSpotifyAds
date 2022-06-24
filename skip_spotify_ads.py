@@ -10,6 +10,8 @@ warnings.simplefilter(action='ignore', category=UserWarning)
 
 SPOTIFY_IN_QUOTES = '"Spotify"'
 CHECK_BUFFER = 0.5 # Seconds
+LOOP_BUFFER = 0.1
+TIMEOUT_THRESHOLD = 5
 
 os.system('clear')
 
@@ -83,28 +85,28 @@ def main():
         if current == ('Advertisement', ''):
             if process_is_running('Spotify'):
                 os.system('pkill -x Spotify')
-            time.sleep(0.1)
+            time.sleep(LOOP_BUFFER)
+            time_in = time.time()
             while True:
                 if not process_is_running('Spotify'):
                     try:
                         os.system('open /Applications/Spotify.app')
                     except:
                         pass
-                time.sleep(0.1)
-                if process_is_running('Spotify'):
+                time.sleep(LOOP_BUFFER)
+                time_out = time.time()-time_in
+                if process_is_running('Spotify') or time_out > TIMEOUT_THRESHOLD:
                     break
             time_in = time.time()
             while True:
                 if process_is_running('Spotify'):
                     os.system(f"osascript -e 'tell application {SPOTIFY_IN_QUOTES} to play next track'")
-                    time_out = time.time()-time_in
                     break
-                else:
-                    time.sleep(0.1)
-                    time_out = time.time()-time_in
-                if time_out > 5:
+                time.sleep(LOOP_BUFFER)
+                time_out = time.time()-time_in
+                if not process_is_running('Spotify') or time_out > TIMEOUT_THRESHOLD:
                     break
-            if time_out <= 5:
+            if time_out <= TIMEOUT_THRESHOLD:
                 banner_index = banner_indexes.pop(0)
                 if len(banner_indexes) == 0:
                     banner_indexes = list(range(len(ONE_LINE_BANNERS)))
