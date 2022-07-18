@@ -1,4 +1,4 @@
-# Skip Spotify Ads (macOS)
+# SkipSpotifyAds (macOS)
 
 ![alt-text](https://i.imgur.com/YFOjnpl.png)
 
