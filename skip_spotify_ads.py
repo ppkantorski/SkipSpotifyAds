@@ -81,14 +81,13 @@ def main():
         
         if current == ('Advertisement', ''):
             if process_is_running('Spotify'):
-                os.system('pkill -x Spotify')
+                os.system('killall Spotify')
             time.sleep(LOOP_BUFFER)
             time_in = time.time()
             while True:
                 if not process_is_running('Spotify'):
                     try:
                         os.system(f'open -gj -a {SPOTIFY_IN_QUOTES}')
-                        #os.system('open /Applications/Spotify.app')
                     except:
                         pass
                 time.sleep(LOOP_BUFFER)
