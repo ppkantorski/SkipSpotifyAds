@@ -10,7 +10,7 @@ This program will restart Spotify in the background whenever ads come up for sea
 3. You can now move the application into your Applications folder, but keep the repository within the folder you installed it to.
 
 
-### Python Script (still used, but now witin the app)
+### Python Script (still used, but now within the app)
 ![alt-text](https://i.imgur.com/YFOjnpl.png)
 
 1. Dependencies
