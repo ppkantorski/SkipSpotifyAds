@@ -13,6 +13,10 @@ def install(package):
 packages = ['SwSpotify']
 [install(pkg) for pkg in packages]
 
+# Uninstall broken package (part of SwSpotify) then install older version
+os.system("pip3 uninstall werkzeug")
+os.system("pip3 install werkzeug==2.0.3")
+
 # Define script path
 script_path = os.path.dirname(os.path.abspath( __file__ ))
 
