@@ -1,7 +1,6 @@
 # SkipSpotifyAds (macOS)
 This program will restart Spotify whenever ads come up for seamless streaming as well as log the songs that you listen to.
 
-# macOS Application
 ![alt-text](https://i.imgur.com/C4AV4G6.png)
 
 ![alt-text](https://i.imgur.com/oJa7rlG.png)
@@ -11,7 +10,7 @@ This program will restart Spotify whenever ads come up for seamless streaming as
 3. You can mow move the application into your Applications folder, but keep the repository within the folder you installed it to.
 
 
-# Python Script
+### Python Script (still used, but now witin the app)
 ![alt-text](https://i.imgur.com/YFOjnpl.png)
 
 1. Dependencies
