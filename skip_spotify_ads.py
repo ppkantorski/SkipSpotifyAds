@@ -1,4 +1,5 @@
 from SwSpotify import spotify
+import threading
 import subprocess
 import os
 import time
@@ -65,6 +66,7 @@ def main():
     
     os.system('clear')
     print(BANNER)
+    notify(title="Skip Spotify Ads", message=f"Skip Spotify Ads is now live!")
     
     banner_indexes = list(range(len(ONE_LINE_BANNERS)))
     random.shuffle(banner_indexes)
@@ -85,7 +87,7 @@ def main():
             while True:
                 if not process_is_running('Spotify'):
                     try:
-                        os.system('open -gj -a "Spotify"')
+                        os.system(f'open -gj -a {SPOTIFY_IN_QUOTES}')
                         #os.system('open /Applications/Spotify.app')
                     except:
                         pass
@@ -108,12 +110,31 @@ def main():
                     banner_indexes = list(range(len(ONE_LINE_BANNERS)))
                     random.shuffle(banner_indexes)
                 print(f'[{dt.datetime.now()}] Ads have been skipped. {ONE_LINE_BANNERS[banner_index]}')
+                notify(title="Skip Spotify Ads", message=f"Ads have been skipped.\n{ONE_LINE_BANNERS[banner_index]}")
         elif current != ('', '') and last != ('', '') and last != current:
             print(f'[{dt.datetime.now()}] Now Playing: {current[0]} by {current[1]}')
-        
+            notify(title="Skip Spotify Ads", message=f"Now Playing:\n{current[0]} by {current[1]}".replace('"', '\\"'))
         last = current
         time.sleep(CHECK_BUFFER)
 
+
+# For making object run in background
+def background_thread(target, args_list):
+    args = ()
+    for arg in args_list:
+        args += (arg,)
+    pr = threading.Thread(target=target, args=args)
+    pr.daemon = True
+    pr.start()
+    return pr
+
+def notify(title, message):
+    background_thread(notify_command, [title, message])
+
+def notify_command(title, message):
+    os.system("""
+              osascript -e 'display notification "{}" with title "{}"'
+              """.format(message, title))
 
 def process_is_running(process_name):
     try:
