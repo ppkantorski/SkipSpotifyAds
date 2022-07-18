@@ -85,7 +85,8 @@ def main():
             while True:
                 if not process_is_running('Spotify'):
                     try:
-                        os.system('open /Applications/Spotify.app')
+                        os.system('open -gj -a "Spotify"')
+                        #os.system('open /Applications/Spotify.app')
                     except:
                         pass
                 time.sleep(LOOP_BUFFER)
