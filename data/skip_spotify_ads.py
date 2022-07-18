@@ -127,7 +127,7 @@ class SkipSpotifyAds(object):
             elif current != ('', '') and last != ('', '') and last != current:
                 print(f'[{now()}] Now Playing: {current[0]} by {current[1]}')
                 message = f"{current[0]} by {current[1]}"
-                self.notify(title="Spotify Now Playing", message=message)
+                self.notify(title="Now Playing", message=message)
             last = current
             time.sleep(self.check_buffer)
     
