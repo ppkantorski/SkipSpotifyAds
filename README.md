@@ -2,8 +2,9 @@
 This program will restart Spotify whenever ads come up for seamless streaming as well as log the songs that you listen to.
 
 # macOS Application
-![alt-text](https://i.imgur.com/oJa7rlG.png)
 ![alt-text](https://i.imgur.com/C4AV4G6.png)
+
+![alt-text](https://i.imgur.com/oJa7rlG.png)
 
 1. Extract the repository to `/Users/{user_name}/Documents/SkipSpotifyAds/`.
 2. Run `build.py` to install the necessary dependencies and build `SkipSpotifyAds.app`.
