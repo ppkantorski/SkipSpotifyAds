@@ -8,6 +8,7 @@ import random
 import warnings
 warnings.simplefilter(action='ignore', category=UserWarning)
 
+now = dt.datetime.now
 
 SPOTIFY_IN_QUOTES = '"Spotify"'
 CHECK_BUFFER = 0.5 # Seconds
@@ -108,11 +109,11 @@ def main():
                 if len(banner_indexes) == 0:
                     banner_indexes = list(range(len(ONE_LINE_BANNERS)))
                     random.shuffle(banner_indexes)
-                print(f'[{dt.datetime.now()}] Ads have been skipped. {ONE_LINE_BANNERS[banner_index]}')
+                print(f'[{now()}] Ads have been skipped. {ONE_LINE_BANNERS[banner_index]}')
                 notify(title="Skip Spotify Ads", message=f"Ads have been skipped.\n{ONE_LINE_BANNERS[banner_index]}")
         elif current != ('', '') and last != ('', '') and last != current:
-            print(f'[{dt.datetime.now()}] Now Playing: {current[0]} by {current[1]}')
-            message = f"Now Playing:\n{current[0]} by {current[1]}".replace('"', '\\"').replace("'", "")
+            print(f'[{now()}] Now Playing: {current[0]} by {current[1]}')
+            message = f"Now Playing:\n{current[0]} by {current[1]}".replace('"', '\\"').replace("'", "'"+'"\'"'+"\'")
             print(message)
             notify(title="Skip Spotify Ads", message=message)
         last = current
