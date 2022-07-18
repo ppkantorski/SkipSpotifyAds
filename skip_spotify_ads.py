@@ -112,7 +112,9 @@ def main():
                 notify(title="Skip Spotify Ads", message=f"Ads have been skipped.\n{ONE_LINE_BANNERS[banner_index]}")
         elif current != ('', '') and last != ('', '') and last != current:
             print(f'[{dt.datetime.now()}] Now Playing: {current[0]} by {current[1]}')
-            notify(title="Skip Spotify Ads", message=f"Now Playing:\n{current[0]} by {current[1]}".replace('"', '\\"'))
+            message = f"Now Playing:\n{current[0]} by {current[1]}".replace('"', '\\"').replace("'", "")
+            print(message)
+            notify(title="Skip Spotify Ads", message=message)
         last = current
         time.sleep(CHECK_BUFFER)
 
