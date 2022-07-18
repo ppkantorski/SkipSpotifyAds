@@ -1,19 +1,16 @@
 from SwSpotify import spotify
 import threading
 import subprocess
-import os
+import os, sys
 import time
 import datetime as dt
 import random
 import warnings
-warnings.simplefilter(action='ignore', category=UserWarning)
 
+warnings.simplefilter(action='ignore', category=UserWarning)
+sys.dont_write_bytecode = True
 now = dt.datetime.now
 
-SPOTIFY_IN_QUOTES = '"Spotify"'
-CHECK_BUFFER = 0.5 # Seconds
-LOOP_BUFFER = 0.1
-TIMEOUT_THRESHOLD = 5
 BANNER = ("\
 =============================================================================================================\n\
                                                                                        zzz                   \n\
@@ -61,64 +58,91 @@ ONE_LINE_BANNERS = [
     'ᕙ༼ ,,ԾܫԾ,, ༽ᕗ ᕙ༼ ,,இܫஇ ,, ༽ᕗ',
     '♪└(￣◇￣)┐♪└(￣◇￣)┐♪└(￣◇￣)┐♪'
 ]
+SPOTIFY_IN_QUOTES = '"Spotify"'
 
 
-def main():
-    
-    os.system('clear')
-    print(BANNER)
-    notify(title="Skip Spotify Ads", message=f"Skip Spotify Ads is now live!")
-    
-    banner_indexes = list(range(len(ONE_LINE_BANNERS)))
-    random.shuffle(banner_indexes)
-    
-    
-    last = None
-    while True:
-        try:
-            current = spotify.current()
-        except Exception as e:
-            current = ('', '')
+class SkipSpotifyAds(object):
+    def __init__(self):
+        self.has_terminated = False
+        self.terminate = False
+        self.loop_buffer = 0.1
+        self.timeout_threshold = 5
+        self.check_buffer = 0.5
+    def run(self):
         
-        if current == ('Advertisement', ''):
-            if process_is_running('Spotify'):
-                os.system('killall Spotify')
-            time.sleep(LOOP_BUFFER)
-            time_in = time.time()
-            while True:
-                if not process_is_running('Spotify'):
-                    try:
-                        os.system(f'open -gj -a {SPOTIFY_IN_QUOTES}')
-                    except:
-                        pass
-                time.sleep(LOOP_BUFFER)
-                time_out = time.time()-time_in
-                if process_is_running('Spotify') or time_out > TIMEOUT_THRESHOLD:
-                    break
-            time_in = time.time()
-            while True:
+        os.system('clear')
+        print(BANNER)
+        self.notify(title="Skip Spotify Ads", message=f"Skip Spotify Ads is now live!")
+        
+        banner_indexes = list(range(len(ONE_LINE_BANNERS)))
+        random.shuffle(banner_indexes)
+        
+        
+        last = None
+        while True:
+            if self.terminate:
+                self.notify(title="Skip Spotify Ads", message="Skip Spotify Ads has been haulted.")
+                self.has_terminated = True
+                return
+            
+            try:
+                current = spotify.current()
+            except Exception as e:
+                current = ('', '')
+            
+            if current == ('Advertisement', ''):
                 if process_is_running('Spotify'):
-                    os.system(f"osascript -e 'tell application {SPOTIFY_IN_QUOTES} to play next track'")
-                    break
-                time.sleep(LOOP_BUFFER)
-                time_out = time.time()-time_in
-                if not process_is_running('Spotify') or time_out > TIMEOUT_THRESHOLD:
-                    break
-            if time_out <= TIMEOUT_THRESHOLD:
-                banner_index = banner_indexes.pop(0)
-                if len(banner_indexes) == 0:
-                    banner_indexes = list(range(len(ONE_LINE_BANNERS)))
-                    random.shuffle(banner_indexes)
-                print(f'[{now()}] Ads have been skipped. {ONE_LINE_BANNERS[banner_index]}')
-                notify(title="Skip Spotify Ads", message=f"Ads have been skipped.\n{ONE_LINE_BANNERS[banner_index]}")
-        elif current != ('', '') and last != ('', '') and last != current:
-            print(f'[{now()}] Now Playing: {current[0]} by {current[1]}')
-            message = f"Now Playing:\n{current[0]} by {current[1]}".replace('"', '\\"').replace("'", "'"+'"\'"'+"\'")
-            print(message)
-            notify(title="Skip Spotify Ads", message=message)
-        last = current
-        time.sleep(CHECK_BUFFER)
-
+                    os.system('killall Spotify')
+                time.sleep(self.loop_buffer)
+                time_in = time.time()
+                while True:
+                    time.sleep(self.loop_buffer)
+                    if not process_is_running('Spotify'):
+                        try:
+                            os.system(f'open -gj -a {SPOTIFY_IN_QUOTES}')
+                        except:
+                            pass
+                    time.sleep(self.loop_buffer)
+                    time_out = time.time()-time_in
+                    if process_is_running('Spotify') or time_out > self.timeout_threshold:
+                        break
+                time_in = time.time()
+                while True:
+                    time.sleep(self.loop_buffer)
+                    if process_is_running('Spotify'):
+                        os.system(f"osascript -e 'tell application {SPOTIFY_IN_QUOTES} to play next track'")
+                        break
+                    time.sleep(self.loop_buffer)
+                    time_out = time.time()-time_in
+                    if not process_is_running('Spotify') or time_out > self.timeout_threshold:
+                        break
+                if time_out <= self.timeout_threshold:
+                    banner_index = banner_indexes.pop(0)
+                    if len(banner_indexes) == 0:
+                        banner_indexes = list(range(len(ONE_LINE_BANNERS)))
+                        random.shuffle(banner_indexes)
+                    print(f'[{now()}] Ads have been skipped. {ONE_LINE_BANNERS[banner_index]}')
+                    message = f"Ads have been skipped.\n{ONE_LINE_BANNERS[banner_index]}"
+                    self.notify(title="Skip Spotify Ads", message=message)
+            elif current != ('', '') and last != ('', '') and last != current:
+                print(f'[{now()}] Now Playing: {current[0]} by {current[1]}')
+                message = f"{current[0]} by {current[1]}"
+                self.notify(title="Spotify Now Playing", message=message)
+            last = current
+            time.sleep(self.check_buffer)
+    
+    def notify(self, title, message):
+        background_thread(notify_command, [title, message])
+    
+    def notify_command(self, title, message):
+        os.system(
+            """
+            osascript -e 'display notification "{}" with title "{}"'
+            """.format(
+                    message.replace('"', '\\"').replace("'", "'"+'"\'"'+"\'"), \
+                    title.replace('"', '\\"').replace("'", "'"+'"\'"'+"\'")
+                )
+        )
 
 # For making object run in background
 def background_thread(target, args_list):
@@ -130,13 +154,6 @@ def background_thread(target, args_list):
     pr.start()
     return pr
 
-def notify(title, message):
-    background_thread(notify_command, [title, message])
-
-def notify_command(title, message):
-    os.system("""
-              osascript -e 'display notification "{}" with title "{}"'
-              """.format(message, title))
 
 def process_is_running(process_name):
     try:
@@ -147,4 +164,5 @@ def process_is_running(process_name):
 
 
 if __name__ == '__main__':
-    main()
+    skip_spotify_ads = SkipSpotifyAds()
+    skip_spotify_ads.run()
