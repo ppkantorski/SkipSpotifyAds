@@ -2,8 +2,7 @@
 This program will restart Spotify in the background whenever ads come up for seamless streaming as well as log the songs that you listen to.
 
 ![alt-text](https://i.imgur.com/C4AV4G6.png)
-
-![alt-text](https://i.imgur.com/oJa7rlG.png)
+![alt-text](https://i.imgur.com/KyiWWA9.png)
 
 ## Installation
 1. Extract the repository to `/Users/{user_name}/Documents/SkipSpotifyAds/`.
