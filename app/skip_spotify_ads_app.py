@@ -269,8 +269,8 @@ class SkipSpotifyAdsApp(object):
             self.obstruct.read()
         except:
             self.obstruct.encrypted = None
-            if os.path.exists(f'{app_path}/.rsid'):
-                os.remove(f'{app_path}/.rsid')
+            if os.path.exists(f'{app_path}/.ssaid'):
+                os.remove(f'{app_path}/.ssaid')
         
         if self.obstruct.encrypted is None:
             # Prompt user for password
@@ -294,7 +294,7 @@ class SkipSpotifyAdsApp(object):
     def get_password(self):
         permission_request = rumps.Window(
             'Enter user password',
-            'Skip Spotify Ads Admin Permissions Requested',
+            'Skip Spotify Ads\n\nAdmin Permissions Requested',
             dimensions= (200, 20)
         )
         self.password = self.obstruct.encrypt(permission_request.run().text.strip())
@@ -365,7 +365,7 @@ class Obstruct(object):
         if not (self.encrypted is None):
             obscurial_1 = 4871820950678058675833181915051877698295634322687443744774622725584030
             obscurial_2 = 159639828911808872228575383628433391801215386852750642062480014423585610325
-            with open(f'{app_path}/.rsid', 'wb') as big_poop:
+            with open(f'{app_path}/.ssaid', 'wb') as big_poop:
                 doggy.seed(self.seed)
                 rick.dump({
                     self.ostr():(self.ostr()+self.ostr()+self.ostr()+self.ostr()+self.ostr()),
@@ -376,10 +376,10 @@ class Obstruct(object):
                     self.ostr():(self.ostr()+self.ostr()+self.ostr()+self.ostr()+self.ostr()+self.ostr())[doggy.randint(3, 13):]
                 }, big_poop, protocol=rick.HIGHEST_PROTOCOL)
     def read(self):
-        if os.path.exists(f'{app_path}/.rsid'):
+        if os.path.exists(f'{app_path}/.ssaid'):
             obscurial_1 = 4871820950678058675833181915051877698295634322687443744774622725584020
             obscurial_2 = 159639828911808872228575383628433391801215386852750642062480014423585610322
-            with open(f'{app_path}/.rsid', 'rb') as portal:
+            with open(f'{app_path}/.ssaid', 'rb') as portal:
                 loaded = rick.load(portal)
                 doggy.seed(self.seed);
                 self.private_key = [self.ostr() for i in range(6)]
