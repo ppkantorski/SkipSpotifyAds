@@ -1,5 +1,5 @@
 __author__ = "Patrick Kantorski"
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 __maintainer__ = "Patrick Kantorski"
 __status__ = "Development Build"
 
@@ -7,7 +7,6 @@ import rumps
 import os, sys
 import importlib
 import time
-#import webbrowser
 import threading
 import json
 
@@ -40,6 +39,11 @@ class SkipSpotifyAdsApp(object):
             "stopping": "\u29D7 Stopping Ad Skip..",
             "auto_start_off": "    Auto-Start",
             "auto_start_on": "\u2713 Auto-Start",
+            "options": "Options...",
+            "enable_song_notifications": "Enable Song Notifications",
+            "disable_song_notifications": "Disable Song Notifications",
+            "enable_skip_notifications": "Enable Skip Notifications",
+            "disable_skip_notifications": "Disable Skip Notifications",
             "about": "About SkipSpotifyAds 🎶",
             "restart": "Restart",
             "quit": "Quit"
@@ -47,7 +51,12 @@ class SkipSpotifyAdsApp(object):
         
         self.options = {
             "auto_start": False,
+            "song_notifications": True,
+            "skip_notifications": True
         }
+        # Read Options file (used for storing app specific options like auto start)
+        self.load_options()
+        
         
         self.app = rumps.App(self.config["app_name"])#, quit_button=None)
         self.stop_loop = rumps.Timer(self.stop_loop_iteration, 1)
@@ -63,10 +72,6 @@ class SkipSpotifyAdsApp(object):
         self.app.title = ''
         self.app.icon = f'{app_path}/icon_off.icns'
         
-        # Read Options file (used for storing app specific options like auto start)
-        if os.path.exists(f'{app_path}/.options'):
-            with open(f'{app_path}/.options', 'r') as f:
-                self.options = json.load(f)
         
         # load menu buttons
         self.load_menu_buttons()
@@ -76,11 +81,20 @@ class SkipSpotifyAdsApp(object):
             self.start_stop_button,
             self.auto_start_button,
             None,
+            (
+                self.config["options"],
+                [
+                    self.song_notifications_button,
+                    self.skip_notifications_button
+                ]
+            ),
+            None,
             self.about_button,
             None,
             self.restart_button
             #self.quit_button
         ]
+    
     
     # Run app alias
     def run(self):
@@ -90,12 +104,12 @@ class SkipSpotifyAdsApp(object):
         # Menu Buttons
         if self.options['auto_start']:
             self.start_stop_button = rumps.MenuItem(
-                title=self.config["stop"],
-                callback=self.start_stop_loop
+                title = self.config["stop"],
+                callback = self.start_stop_loop
             )
             self.auto_start_button = rumps.MenuItem(
-                title=self.config["auto_start_on"],
-                callback=self.auto_start
+                title = self.config["auto_start_on"],
+                callback = self.auto_start
             )
             print("Starting SkipSpotifyAds")
             self.skip_spotify_ads.terminate = False
@@ -104,13 +118,40 @@ class SkipSpotifyAdsApp(object):
             
         else:
             self.start_stop_button = rumps.MenuItem(
-                title=self.config["start"],
-                callback=self.start_stop_loop
+                title = self.config["start"],
+                callback = self.start_stop_loop
             )
             self.auto_start_button = rumps.MenuItem(
-                title=self.config["auto_start_off"],
-                callback=self.auto_start
+                title = self.config["auto_start_off"],
+                callback = self.auto_start
             )
+        
+        if self.options['song_notifications']:
+            self.song_notifications_button = rumps.MenuItem(
+                title = self.config["disable_song_notifications"],
+                callback = self.toggle_song_notifications
+            )
+        else:
+            self.song_notifications_button = rumps.MenuItem(
+                title = self.config["enable_song_notifications"],
+                callback = self.toggle_song_notifications
+            )
+        self.skip_spotify_ads.song_notifications = self.options['song_notifications']
+        
+        
+        if self.options['skip_notifications']:
+            self.skip_notifications_button = rumps.MenuItem(
+                title = self.config["disable_skip_notifications"],
+                callback = self.toggle_skip_notifications
+            )
+        else:
+            self.skip_notifications_button = rumps.MenuItem(
+                title = self.config["enable_skip_notifications"],
+                callback = self.toggle_skip_notifications
+            )
+        self.skip_spotify_ads.skip_notifications = self.options['skip_notifications']
+        
+        
         self.about_button = rumps.MenuItem(
             title = self.config["about"],
             callback = self.open_about
@@ -124,6 +165,52 @@ class SkipSpotifyAdsApp(object):
             callback = self.quit_app,
             key = 'q'
         )
+    
+    
+    def load_options(self):
+        if os.path.exists(f'{app_path}/.options'):
+            with open(f'{app_path}/.options', 'r') as f:
+                self.options = json.load(f)
+    
+    def write_options(self):
+        with open(f'{app_path}/.options', 'w') as f:
+            f.write(json.dumps(self.options, sort_keys=True, indent=4))
+    
+    def toggle_song_notifications(self, sender):
+        if sender.title == self.config["enable_song_notifications"]:
+            
+            self.options['song_notifications'] = True
+            self.skip_spotify_ads.song_notifications = self.options['song_notifications']
+            self.write_options()
+            
+            sender.title = self.config["disable_song_notifications"]
+            
+        elif sender.title == self.config["disable_song_notifications"]:
+            
+            self.options['song_notifications'] = False
+            self.skip_spotify_ads.song_notifications = self.options['song_notifications']
+            self.write_options()
+            
+            sender.title = self.config["enable_song_notifications"]
+    
+    def toggle_skip_notifications(self, sender):
+        if sender.title == self.config["enable_skip_notifications"]:
+            
+            self.options['skip_notifications'] = True
+            self.skip_spotify_ads.skip_notifications = self.options['skip_notifications']
+            self.write_options()
+            
+            sender.title = self.config["disable_skip_notifications"]
+            
+        elif sender.title == self.config["disable_skip_notifications"]:
+            
+            self.options['skip_notifications'] = False
+            self.skip_spotify_ads.skip_notifications = self.options['skip_notifications']
+            self.write_options()
+            
+            sender.title = self.config["enable_skip_notifications"]
+    
+    
     
     def restart_app(self, sender):
         if sender.title == self.config["restart"]:
