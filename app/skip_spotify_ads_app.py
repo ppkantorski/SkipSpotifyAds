@@ -7,6 +7,7 @@ import rumps
 import os, sys
 import importlib
 import time
+#import webbrowser
 import threading
 import json
 
@@ -34,9 +35,9 @@ class SkipSpotifyAdsApp(object):
         
         self.config = {
             "app_name": "SkipSpotifyAds",
-            "start": "\u25B6 Start Ad Skip",
-            "stop": "\u25A0 Stop Ad Skip",
-            "stopping": "\u29D7 Stopping Ad Skip..",
+            "start": "\u25B6 Start Ad Skipper",
+            "stop": "\u25A0 Stop Ad Skipper",
+            "stopping": "\u29D7 Stopping Ad Skipper..",
             "auto_start_off": "    Auto-Start",
             "auto_start_on": "\u2713 Auto-Start",
             "options": "Options...",
