@@ -1,3 +1,8 @@
+__author__ = "Patrick Kantorski"
+__version__ = "1.0.4"
+__maintainer__ = "Patrick Kantorski"
+__status__ = "Development Build"
+
 from SwSpotify import spotify
 import threading
 import subprocess
@@ -63,6 +68,8 @@ SPOTIFY_IN_QUOTES = '"Spotify"'
 
 class SkipSpotifyAds(object):
     def __init__(self):
+        self.song_notifications = True
+        self.skip_notifications = True
         self.has_terminated = False
         self.terminate = False
         self.loop_buffer = 0.1
@@ -123,11 +130,13 @@ class SkipSpotifyAds(object):
                         random.shuffle(banner_indexes)
                     print(f'[{now()}] Ads have been skipped. {ONE_LINE_BANNERS[banner_index]}')
                     message = f"Ads have been skipped.\n{ONE_LINE_BANNERS[banner_index]}"
-                    self.notify(title="Skip Spotify Ads", message=message)
+                    if self.skip_notifications:
+                        self.notify(title="Skip Spotify Ads", message=message)
             elif current != ('', '') and last != ('', '') and last != current:
                 print(f'[{now()}] Now Playing: {current[0]} by {current[1]}')
                 message = f"{current[0]} by {current[1]}"
-                self.notify(title="Now Playing", message=message)
+                if self.song_notifications:
+                    self.notify(title="Now Playing", message=message)
             last = current
             time.sleep(self.check_buffer)
     
