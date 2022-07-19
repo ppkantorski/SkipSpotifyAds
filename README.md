@@ -1,7 +1,7 @@
 # SkipSpotifyAds (macOS)
 This program will restart Spotify in the background whenever ads come up for seamless streaming as well as log the songs that you listen to.
 
-![alt-text](https://i.imgur.com/C4AV4G6.png)
+![alt-text](https://i.imgur.com/iP0k7or.png)
 ![alt-text](https://i.imgur.com/KyiWWA9.png)
 
 ## Installation
