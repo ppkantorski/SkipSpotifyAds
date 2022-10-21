@@ -64,7 +64,9 @@ ONE_LINE_BANNERS = [
     '♪ └(￣◇￣)┐ ♪ └(￣◇￣)┐ ♪ └(￣◇￣)┐ ♪'
 ]
 SPOTIFY_IN_QUOTES = '"Spotify"'
+SYSTEM_EVENTS_IN_QUOTES = '"System Events"'
 DEFAULT_VOLUME = 80
+DEFAULT_WINDOW_COUNT = 1
 
 class SkipSpotifyAds(object):
     def __init__(self):
@@ -76,6 +78,7 @@ class SkipSpotifyAds(object):
         self.timeout_threshold = 5
         self.check_buffer = 0.5
         self.volume = DEFAULT_VOLUME # default current volume
+        self.window_count = DEFAULT_WINDOW_COUNT
     def run(self):
         
         os.system('clear')
@@ -99,6 +102,11 @@ class SkipSpotifyAds(object):
                 self.volume = DEFAULT_VOLUME
             
             try:
+                self.window_count = int(os.popen(f"osascript -e 'tell application {SYSTEM_EVENTS_IN_QUOTES} to tell process {SPOTIFY_IN_QUOTES} to (count of windows)'").read().rstrip('\n'))
+            except:
+                self.window_count = DEFAULT_WINDOW_COUNT
+            
+            try:
                 current = spotify.current()
             except Exception as e:
                 current = ('', '')
@@ -112,7 +120,10 @@ class SkipSpotifyAds(object):
                     time.sleep(self.loop_buffer)
                     if not process_is_running('Spotify'):
                         try:
-                            os.system(f'open -gj -a {SPOTIFY_IN_QUOTES}')
+                            if self.window_count == 0:
+                                os.system(f'open -gj -a {SPOTIFY_IN_QUOTES}')
+                            else:
+                                os.system(f'open -a {SPOTIFY_IN_QUOTES}')
                         except:
                             pass
                     time.sleep(self.loop_buffer)
