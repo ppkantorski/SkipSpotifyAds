@@ -1,5 +1,5 @@
 __author__ = "Patrick Kantorski"
-__version__ = "1.0.4"
+__version__ = "1.0.5"
 __maintainer__ = "Patrick Kantorski"
 __status__ = "Development Build"
 
@@ -26,45 +26,45 @@ BANNER = ("\
 =============================================================================================================\
 ")
 ONE_LINE_BANNERS = [
-    '(x_x) [o_o] (^.^) ("-") (T.T)',
+    '(x_x)   [o_o]   (^.^)   ("-")   (T.T)',
     '_.~"(_.~"(_.~"(_.~"(_.~"(_.~"(_.~"(_.~"(',
     '(<>..<>)   -=:o:=-   (<>..<>)',
     '(<(<>(<>.(<>..<>).<>)<>)>)',
     '//\\\\(oo)//\\\\  /\\oo/\\  //\\\\(oo)//\\\\',
-    '[($)] [($)] [($)] [($)] [($)]',
-    '*(>=^‿‿^=)  <3  (=^‿‿^=<)*',
-    '@)}---^-----  ~♡ ⓛ ⓞ ⓥ ⓔ ♡~',
-    '_.~"~._.~"~._.~"~._.~"~._.~"~._.~"~._.~"~._',
-    '>>------> >>------>  ((+))',
+    '[($)]  [($)]  [($)]  [($)]  [($)]',
+    '*(>=^‿‿^=)   <3   (=^‿‿^=<)*',
+    '@)}---^-----   ~♡ ⓛ ⓞ ⓥ ⓔ ♡~',
+    '_.~"~._.~"~._.~"~._.~"~._.~"~._.~"~._',
+    '>>------> >>------>   ((+))',
     'c|█| c|█| c|▄| c|▄| c|_| c|_|',
     '░▀░   ░▀░   ░▀░   ▒▀▒   ░▀░',
     '▀█▄ ▄█▀ ▀█▀ █▀▀ ▀▀█ ██ ▀▀▀▀',
     '_.~"~._.~"~._(-(-_(-_-)_-)-)_.~"~._.~"~._',
     '─=≡Σ((( つ◕ل͜◕)つ)xxxxx[;;;;;;;;;>',
-    "<('' <)  <( ' ' )>  (> '')>",
+    "<('' <)   <( ' ' )>   (> '')>",
     '(ノಠ益ಠ)ノ彡   ლ(ಠ益ಠლ)╯',
     '龴(ↀ◡ↀ)龴   ^(ↀᴥↀ)^   龴(ↀ◡ↀ)龴',
     '☁ ▅▒░☼‿☼░▒▅ ☁ ▅▒░☼_☼░▒▅ ☁ ▅▒░☼.☼░▒▅ ☁',
     '¸¸♬·¯·♩¸¸♪·¯·♫¸¸♬·¯·♩¸¸♪·¯·♫¸¸',
-    '(✿ ♥‿♥)︻╦╤─    ༼☉ɷ⊙༽ (✖╭╮✖)',
+    '(✿ ♥‿♥)︻╦╤─     ༼☉ɷ⊙༽ (✖╭╮✖)',
     '(╯°□°)--︻╦╤─ - - - - - - ',
-    '┏(-_-)┛┗(-_-)┓┗(-_-)┛┏(-_-)┓',
+    '┏(-_-)┛ ┗(-_-)┓ ┗(-_-)┛ ┏(-_-)┓',
     'd(^o^)b ¸¸♬·¯·♩¸¸♪·¯·♫¸¸♪·¯·♫¸¸',
     '( •_•)O*¯`·.¸.·´`·.¸.·´¯`°Q(•_• )',
     '◢♂◣◥♀◤◢♂◣◥♀◤◢♂◣◥♀◤',
     '––•–√\\/––√\\/––•––––•–√\\/––√\\/––•––',
-    '┻━┻︵  \\(°□°)/ ︵ ┻━┻ ',
+    '┻━┻︵   \\(°□°)/   ︵ ┻━┻ ',
     '(c ͡|Q ͜ʖ ͡o)-c[█]     ٩(͡๏̯͡๏)۶ c[○┬●]כ ',
-    '♪┏(°.°)┛┗(°.°)┓┗(°.°)┛┏(°.°)┓♪',
+    '♪ ┏(°.°)┛ ┗(°.°)┓ ┗(°.°)┛ ┏(°.°)┓ ♪',
     'ʕ•̫͡•ʕ*̫͡*ʕ•͓͡•ʔ-̫͡-ʕ•̫͡•ʔ*̫͡*ʔ-̫͡-ʔ',
-    '┌∩┐(◣ _ ◢)┌∩┐  </3  ┌∩┐(◣ _ ◢)┌∩┐',
+    '┌∩┐(◣ _ ◢)┌∩┐ </3 ┌∩┐(◣ _ ◢)┌∩┐',
     '(づ ￣ ³￣)づ    Ⓢ Ⓜ Ⓞ Ⓞ Ⓣ Ⓗ',
-    '༼ つ ͡◕ Ѿ ͡◕ ༽つ ლ(́◕◞Ѿ◟◕‵ლ)',
+    '༼ つ ͡◕ Ѿ ͡◕ ༽つ    ლ(́◕◞Ѿ◟◕‵ლ)',
     'ᕙ༼ ,,ԾܫԾ,, ༽ᕗ    ᕙ༼ ,,இܫஇ ,, ༽ᕗ',
-    '♪└(￣◇￣)┐♪└(￣◇￣)┐♪└(￣◇￣)┐♪'
+    '♪ └(￣◇￣)┐ ♪ └(￣◇￣)┐ ♪ └(￣◇￣)┐ ♪'
 ]
 SPOTIFY_IN_QUOTES = '"Spotify"'
-
+DEFAULT_VOLUME = 80
 
 class SkipSpotifyAds(object):
     def __init__(self):
@@ -75,6 +75,7 @@ class SkipSpotifyAds(object):
         self.loop_buffer = 0.1
         self.timeout_threshold = 5
         self.check_buffer = 0.5
+        self.volume = DEFAULT_VOLUME # default current volume
     def run(self):
         
         os.system('clear')
@@ -91,6 +92,11 @@ class SkipSpotifyAds(object):
                 self.notify(title="Skip Spotify Ads", message="Skip Spotify Ads has been haulted.")
                 self.has_terminated = True
                 return
+            
+            try:
+                self.volume = int(os.popen(f"osascript -e 'tell application {SPOTIFY_IN_QUOTES} to get sound volume'").read().rstrip('\n'))
+            except:
+                self.volume = DEFAULT_VOLUME
             
             try:
                 current = spotify.current()
@@ -117,6 +123,7 @@ class SkipSpotifyAds(object):
                 while True:
                     time.sleep(self.loop_buffer)
                     if process_is_running('Spotify'):
+                        os.system(f"osascript -e 'tell application {SPOTIFY_IN_QUOTES} to set sound volume to {self.volume}'")
                         os.system(f"osascript -e 'tell application {SPOTIFY_IN_QUOTES} to play next track'")
                         break
                     time.sleep(self.loop_buffer)
@@ -137,6 +144,8 @@ class SkipSpotifyAds(object):
                 message = f"{current[0]} by {current[1]}"
                 if self.song_notifications:
                     self.notify(title="Now Playing", message=message)
+            
+            
             last = current
             time.sleep(self.check_buffer)
     
